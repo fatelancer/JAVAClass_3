@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Arc2D;
 
 /**
  * Created by fatel on 2016/5/14.
  */
 public class CircleArea extends JFrame implements ActionListener {
-    String area;
 
     JPanel[] p = new JPanel[4];
     Color[] c = {Color.red, Color.yellow, Color.green, Color.pink};
@@ -62,27 +62,43 @@ public class CircleArea extends JFrame implements ActionListener {
         this.setContentPane(p[0]);
     }
 
-    public void actionPerformed(ActionEvent ae) throws NumberFormatException {
+    public void dispResult(){
+        Circle cr = new Circle(Double.parseDouble(t[0].getText()));
+        t[1].setText(cr.outArea());
+    }
+
+    public void clearText(){
+        t[0].setText("");
+        t[1].setText("");
+    }
+
+    public void actionPerformed(ActionEvent ae) throws MyException {
         try {
             if (ae.getSource() == b[0]) {
                 if (t[0].getText().equals("")){
-                    throw new MyException("半径不能为空，请重新输入！！！");
+                    throw new Exception("半径不能为空，请重新输入！！！");
                 }else {
-                    area = String.format("%5f", 3.1415926 * Double.parseDouble(t[0].getText()) * Double.parseDouble(t[0].getText()));
-                    t[1].setText(area);
+                    if (Double.parseDouble(t[0].getText()) < 0) throw new MyException("半径不能为负！！！请重新输入");
+                    else {
+                        dispResult();
+                    }
                 }
             } else {
-                t[0].setText("");
-                t[1].setText("");
+                clearText();
             }
         } catch (MyException me) {
             JOptionPane.showMessageDialog(null,
                     me.outExceMessage(), "异常消息", JOptionPane.ERROR_MESSAGE);
+            clearText();
         }catch (NumberFormatException nfe){
             JOptionPane.showMessageDialog(null,
-                    "输入不能为非数字，请重新输入", "异常消息", JOptionPane.ERROR_MESSAGE);
-            t[0].setText("");
-            t[1].setText("");
+                    "输入不能为字符，请重新输入！！！", "异常消息", JOptionPane.ERROR_MESSAGE);
+            clearText();
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    e.getMessage(), "异常消息", JOptionPane.ERROR_MESSAGE);
+            clearText();
         }
     }
 
@@ -106,4 +122,21 @@ public class CircleArea extends JFrame implements ActionListener {
             return str;
         }
     }//类中类
+
+    class Circle{
+        private String area;
+        private double r,s;
+        private final double PI = 3.1415926;
+        public Circle(double r){
+            this.r = r;
+        }
+        public void calc(){
+                s = PI * r * r;
+        }
+        public String outArea(){
+            calc();
+            area = String.format("%5f",s);
+            return area;
+        }
+    }
 }
