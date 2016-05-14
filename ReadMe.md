@@ -68,10 +68,13 @@ public class CircleArea extends JFrame implements ActionListener{
     p2.add(l1);
     p2.add(t1);
     p2.add(l2);
+    t2.setEditable(false);//t2不可编辑
     p2.add(t2);
 
     p3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
     p3.setBackground(Color.pink);
+    b1.addActionListener(this);
+    b2.addActionListener(this);//添加监听器
     p3.add(b1);
     p3.add(b2);
 
@@ -80,4 +83,15 @@ public class CircleArea extends JFrame implements ActionListener{
     p0.add("South", p3);
 
     this.setContentPane(p0);
+```
+## 5. 事件处理
+```java
+    public void actionPerformed(ActionEvent ae){
+        if (ae.getSource()==b1){
+            t2.setText(""+3.1415926*Double.parseDouble(t1.getText())*Double.parseDouble(t1.getText()));
+        }else{
+            t1.setText("");
+            t2.setText("");
+        }
+    }
 ```
