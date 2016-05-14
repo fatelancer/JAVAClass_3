@@ -12,6 +12,7 @@ public class CircleArea extends JFrame implements ActionListener{
     String area;
 
     JPanel []p = new JPanel[4];
+    Color [] c = {Color.red, Color.yellow, Color.green, Color.pink};
     LayoutManager [] lm = { new BorderLayout(5,5),
                             new FlowLayout(FlowLayout.CENTER, 5, 5),
                             new GridLayout(2,2,5,5),
@@ -26,10 +27,10 @@ public class CircleArea extends JFrame implements ActionListener{
 
     JButton [] b = new JButton[2];
 
-    //FlowLayout fl = new FlowLayout(FlowLayout.CENTER, 5, 5);
     public CircleArea(){
         for (int i = 0;i < p.length;i++){
             p[i] = new JPanel(lm[i]);
+            p[i].setBackground(c[i]);
         }
 
         for (int i = 0;i < l.length;i++){
@@ -42,23 +43,17 @@ public class CircleArea extends JFrame implements ActionListener{
 
         for (int i = 0;i < b.length;i++){
             b[i] = new JButton(str1[i]);
+            b[i].addActionListener(this);
+            p[3].add(b[i]);
         }
 
-        p[1].setBackground(Color.yellow);
         p[1].add(l[0]);
 
-        p[2].setBackground(Color.green);
         p[2].add(l[1]);
         p[2].add(t[0]);
         p[2].add(l[2]);
         t[1].setEditable(false);
         p[2].add(t[1]);
-
-        p[3].setBackground(Color.pink);
-        b[0].addActionListener(this);
-        b[1].addActionListener(this);
-        p[3].add(b[0]);
-        p[3].add(b[1]);
 
         p[0].add("North", p[1]);
         p[0].add("Center", p[2]);
