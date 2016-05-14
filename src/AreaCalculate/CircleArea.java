@@ -1,6 +1,7 @@
 package AreaCalculate;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,8 +25,29 @@ public class CircleArea extends JFrame implements ActionListener{
     JButton b1 = new JButton("计算");
     JButton b2 = new JButton("清空");
 
+    FlowLayout fl = new FlowLayout(FlowLayout.CENTER, 5, 5);
     public CircleArea(){
+        p1.setLayout(fl);
+        p1.setBackground(Color.yellow);
+        p1.add(l0);
 
+        p2.setLayout(new GridLayout(2,2,5,5));
+        p2.setBackground(Color.green);
+        p2.add(l1);
+        p2.add(t1);
+        p2.add(l2);
+        p2.add(t2);
+
+        p3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        p3.setBackground(Color.pink);
+        p3.add(b1);
+        p3.add(b2);
+
+        p0.add("North", p1);
+        p0.add("Center", p2);
+        p0.add("South", p3);
+
+        this.setContentPane(p0);
     }
 
     public void actionPerformed(ActionEvent ae){
@@ -35,7 +57,7 @@ public class CircleArea extends JFrame implements ActionListener{
     public static void main(String [] args){
         CircleArea ca = new CircleArea();
         ca.setTitle("圆面积的计算");
-        ca.setBounds(400,300,280,150);
+        ca.setBounds(400,300,280,180);
         ca.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ca.setVisible(true);
     }
