@@ -149,3 +149,66 @@ public class CircleArea extends JFrame implements ActionListener{
         this.setContentPane(p[0]);
     }
 ```
+## 7. 异常处理
+###7.1 throw
+```java
+    public void actionPerformed(ActionEvent ae) throws NumberFormatException{
+        if (ae.getSource()==b[0]){
+            area=String.format("%5f", 3.1415926*Double.parseDouble(t[0].getText())*Double.parseDouble(t[0].getText()));
+            t[1].setText(area);
+        }else{
+            t[0].setText("");
+            t[1].setText("");
+        }
+    }
+```
+### 7.2 try catch
+```java
+ public void actionPerformed(ActionEvent ae) throws NumberFormatException{
+    try{
+        if (ae.getSource()==b[0]){
+            area=String.format("%5f", 3.1415926*Double.parseDouble(t[0].getText())*Double.parseDouble(t[0].getText()));
+            t[1].setText(area);
+        }else{
+            t[0].setText("");
+            t[1].setText("");
+        }
+    }
+    catch (NumberFormatException nfe){
+        JOptionPane.showMessageDialog(null,
+                nfe.getMessage(),"异常消息",JOptionPane.ERROR_MESSAGE);
+    }
+}
+```
+### 7.3 异常类
+```java
+public void actionPerformed(ActionEvent ae) throws MyException {
+    try {
+        if (t[0].getText().equals("")){
+            throw new MyException("半径不能为空，请重新输入！！！");
+        }else {
+            if (ae.getSource() == b[0]) {
+                area = String.format("%5f", 3.1415926 * Double.parseDouble(t[0].getText()) * Double.parseDouble(t[0].getText()));
+                t[1].setText(area);
+            } else {
+                t[0].setText("");
+                t[1].setText("");
+            }
+        }
+    } catch (MyException me) {
+        JOptionPane.showMessageDialog(null,
+                me.outExceMessage(), "异常消息", JOptionPane.ERROR_MESSAGE);
+    }
+}
+class MyException extends NumberFormatException {
+    private String str;
+
+    public MyException(String s) {
+        str = s;
+    }
+
+    public String outExceMessage() {
+        return str;
+    }
+}//类中类
+```
