@@ -182,22 +182,27 @@ public class CircleArea extends JFrame implements ActionListener{
 ```
 ### 7.3 异常类
 ```java
-public void actionPerformed(ActionEvent ae) throws MyException {
+public void actionPerformed(ActionEvent ae) throws NumberFormatException {
     try {
-        if (t[0].getText().equals("")){
-            throw new MyException("半径不能为空，请重新输入！！！");
-        }else {
-            if (ae.getSource() == b[0]) {
+        if (ae.getSource() == b[0]) {
+            if (t[0].getText().equals("")){
+                throw new MyException("半径不能为空，请重新输入！！！");
+            }else {
                 area = String.format("%5f", 3.1415926 * Double.parseDouble(t[0].getText()) * Double.parseDouble(t[0].getText()));
                 t[1].setText(area);
-            } else {
-                t[0].setText("");
-                t[1].setText("");
             }
+        } else {
+            t[0].setText("");
+            t[1].setText("");
         }
     } catch (MyException me) {
         JOptionPane.showMessageDialog(null,
                 me.outExceMessage(), "异常消息", JOptionPane.ERROR_MESSAGE);
+    }catch (NumberFormatException nfe){
+        JOptionPane.showMessageDialog(null,
+                "输入不能为非数字，请重新输入", "异常消息", JOptionPane.ERROR_MESSAGE);
+        t[0].setText("");
+        t[1].setText("");
     }
 }
 class MyException extends NumberFormatException {
